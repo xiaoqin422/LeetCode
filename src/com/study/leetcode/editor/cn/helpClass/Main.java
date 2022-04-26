@@ -1,44 +1,32 @@
 package com.study.leetcode.editor.cn.helpClass;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
+
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();//表示有t组数据
-        int[] result = new int[t];// 解
-        // 问题求解
-        for (int i = 0; i < t; i++) {
-            int number = sc.nextInt();
-            String color = sc.next();
-
-            int count[] = new int[3]; //记录三中颜色的墙面个数
-            Stack<Integer> A = new Stack<>();
-            Stack<Integer> B = new Stack<>();
-            Stack<Integer> C = new Stack<>();
-            for (int j = 0; j < color.length(); j++) {
-                char item = color.charAt(j);
-                if (item == 'A'){
-                    A.push(j);
-                }else if (item == 'B'){
-                    B.push(j);
-                }else {
-                    C.push(j);
-                }
-            }
-            if (A.size() == B.size() && A.size() == number){
-                result[i] = 0;
-                break;
-            }
-
-
+        int n = sc.nextInt();
+        int[][] arr = new int[n][2];
+        int[] prices = new int[n];
+        int[] nums = new int[n];
+        arr[0][0] = sc.nextInt();
+        for (int i = 0; i < n; i++) {
+            prices[i] = sc.nextInt();
         }
-        // 结果输出
-        for (int i : result) {
-            System.out.println(i);
+        nums[0] = arr[0][0]/prices[0];
+        arr[0][1] = arr[0][0]-(nums[0] * prices[0]);
+        for (int i = 1; i < n; ++i) {
+            arr[i][0] = Math.max(arr[i - 1][0], arr[i - 1][1] + prices[i] * nums[i-1]);
+            nums[i] = arr[i - 1][0]/prices[i];
+            if(arr[i-1][1]+nums[i-1]*prices[i] < arr[i][0] && nums[i-1] < nums[i]){
+                arr[i][1] = arr[i - 1][0] - prices[i] * nums[i];
+            }
+            else {
+                nums[i] = nums[i-1];
+                arr[i][1] = arr[i-1][1];
+            }
         }
+        System.out.println(arr[n - 1][0]);
     }
 }

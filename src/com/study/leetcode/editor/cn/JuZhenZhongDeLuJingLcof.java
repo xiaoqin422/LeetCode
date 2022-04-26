@@ -41,8 +41,6 @@
 
 package com.study.leetcode.editor.cn;
 
-import javax.xml.stream.FactoryConfigurationError;
-
 /**
  * [剑指 Offer 12]矩阵中的路径
  *
@@ -52,62 +50,47 @@ import javax.xml.stream.FactoryConfigurationError;
 public class JuZhenZhongDeLuJingLcof {
     public static void main(String[] args) {
         Solution solution = new JuZhenZhongDeLuJingLcof().new Solution();
-        char[][] c = new char[][]{{'C','A','A'},{'A','A','A'},{'B','C','D'}};
+        char[][] c = new char[][]{{'C', 'A', 'A'}, {'A', 'A', 'A'}, {'B', 'C', 'D'}};
         System.out.println(solution.exist(c, "AAB"));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        String word;
-        char[][] board;
-        int rows;
-        int cols;
+        char[][] board = null;
+        String world;
+        int cols = 0;
+        int rows = 0;
 
         public boolean exist(char[][] board, String word) {
-            if (word.length() == 0) return false;
+            if (board.length <= 0 || board[0].length == 0) return false;
             this.board = board;
-            this.word = word;
             rows = board.length;
             cols = board[0].length;
-            if (rows * cols >= word.length()){
-                char head = word.charAt(0);
-                for (int i = 0; i < rows; i++) {
-                    for (int j = 0; j < cols; j++) {
-                        if (board[i][j] == head &&search(1,i,j)) {
-                            return true;
-                        }
+            world = word;
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    if (dfs(i, j, 0)) {
+                        return true;
                     }
                 }
             }
             return false;
         }
 
-        public boolean search(int index, int row, int col) {
-            if (index >= word.length()) return true;
-            char target = word.charAt(index);
-            boolean flag = false;
-            char temp = board[row][col];
-            board[row][col] = '/';
-            if (check(row, col - 1,target)) {
-                flag = search(index + 1, row, col - 1);
-            }
-            if (!flag && check(row, col + 1,target)) {
-                flag = search(index + 1, row, col + 1);
-            }
-            if (!flag && check(row - 1, col,target)) {
-                flag = search(index + 1, row - 1, col);
-            }
-            if (!flag && check(row + 1, col,target)) {
-                flag = search(index + 1, row + 1, col);
-            }
-            board[row][col] = temp;
-            return flag;
-        }
-
-        private boolean check(int row, int col,char target) {
-            return row >= 0 && col >= 0 && row < rows && col < cols && board[row][col] == target;
+        private boolean dfs(int row, int col, int index) {
+            char item = world.charAt(index);
+            if (row >= rows || col >= cols || row < 0 || col < 0 || board[row][col] != item)
+                return false;
+            if (index == world.length() - 1) return true;
+            board[row][col] = '\0';//防止重复字符回查
+            boolean res = dfs(row - 1, col, index + 1) || dfs(row + 1, col, index + 1)
+                    || dfs(row, col + 1, index + 1) || dfs(row, col - 1, index + 1);
+            board[row][col] = item;
+            return res;
         }
     }
+
+
 //leetcode submit region end(Prohibit modification and deletion)
 
 }

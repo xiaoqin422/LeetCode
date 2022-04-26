@@ -1,0 +1,19 @@
+class Solution {
+    public String reverseWords(String s) {
+        Stack<String> stack = new Stack<>();
+        StringBuilder sb = new StringBuilder();
+        String[] s1 = s.split(" ");
+        for (String value : s1) {
+            if (value.length() != 0){
+                stack.push(value);
+            }
+        }
+        while (!stack.isEmpty()){
+            sb.append(stack.pop()).append(' ');
+        }
+        return sb.toString().trim();
+    }
+}
+
+//runtime:1 ms
+//memory:41.1 MB

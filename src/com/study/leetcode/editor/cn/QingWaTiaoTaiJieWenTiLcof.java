@@ -40,6 +40,7 @@ package com.study.leetcode.editor.cn;
 public class QingWaTiaoTaiJieWenTiLcof {
     public static void main(String[] args) {
         Solution solution = new QingWaTiaoTaiJieWenTiLcof().new Solution();
+
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
@@ -57,7 +58,7 @@ class Solution {
         dep[1] = 1;
         dep[2] = 2;
         for (int i = 3; i <= n; i++) {
-            dep[i] = (dep[i - 1] + dep[i - 2]) % 1000000007;
+            dep[i] = dep[i - 1] + dep[i - 2];
         }
         return dep[n];
     }
