@@ -77,6 +77,7 @@ class Solution {
     }
     // 翻转链表
     private ListNode reverse(ListNode head){
+        // 当链表为空或者只有一个节点时，直接返回
         if (head == null || head.next == null){
             return head;
         }
