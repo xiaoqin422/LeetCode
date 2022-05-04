@@ -36,10 +36,7 @@ package com.study.leetcode.editor.cn;
 //</ul>
 //<div><div>Related Topics</div><div><li>哈希表</li><li>字符串</li><li>滑动窗口</li></div></div><br><div><li>👍 870</li><li>👎 0</li></div>
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * [438]find-all-anagrams-in-a-string
@@ -57,38 +54,50 @@ public class P438_FindAllAnagramsInAString {
         // 滑动窗口，窗口满足条件①满足题目需求②无要求外的其他字符  ③窗口长度最大为目标串长度
         public List<Integer> findAnagrams(String s, String p) {
             List<Integer> ans = new ArrayList<>();
-            Map<Character, Integer> need = new HashMap<>(), window = new HashMap<>();
+            // Map<Character, Integer> need = new HashMap<>(), window = new HashMap<>();
             char[] target = p.toCharArray();
+            int[] pArr = new int[26];
+            int[] sArr = new int[26];
             // 初始化达成条件①
             for (char c : target) {
-                need.put(c, need.getOrDefault(c, 0) + 1);
+                // need.put(c, need.getOrDefault(c, 0) + 1);
+                pArr[c - 'a'] ++;
             }
-            int valid = 0;//达成条件①满足标志
+            // int valid = 0;//达成条件①满足标志
             int left = 0, right = 0;
             char[] chars = s.toCharArray();
             while (right < chars.length) {
                 char cur = chars[right];
                 right++;
-                // 如果满足条件②，则进行窗口右滑动
-                if (need.get(cur) != null && (right - left) < target.length) {
-                    window.put(cur, window.getOrDefault(cur, 0) + 1);
-                    if (window.get(cur).equals(need.get(cur))) {
-                        valid++;
+                int index = cur - 'a';
+                if (pArr[index] != 0){
+                    sArr[index] ++;
+                }
+                while (right - left >= target.length){
+                    if (Arrays.equals(sArr,pArr)) ans.add(left);
+                    index = chars[left] - 'a';
+                    left++;
+                    if (pArr[index] != 0 && sArr[index] != 0){
+                        sArr[index] --;
                     }
-                } else {//不满足条件，则当前窗口失效，清空条件②
-                    window.clear();
-                    left = right;
-                    valid = 0;
-                    // TODO 窗口重置
                 }
-                // 满足条件
-                if (valid == need.size() && (right - left + 1) == target.length) {
-                    ans.add(left);
-                    // TODO 窗口重置
-                    window.clear();
-                    left = right;
-                    valid = 0;
-                }
+                // if (need.get(cur) == null){//遇到异常字符，窗口直接作废
+                //     window.clear();
+                //     left = right;
+                //     valid = 0;
+                //     continue;
+                // }else {
+                //     window.put(cur,window.getOrDefault(cur,0) + 1);
+                //     if (window.get(cur).equals(need.get(cur))) valid++;
+                // }
+                // if ((right - left) == target.length){//窗口达到指定长度，进行左移
+                //     if (valid == need.size()) ans.add(left);//此窗口满足条件，添加到答案
+                //     // 左移
+                //     cur = chars[left];
+                //     left ++;
+                //     if (window.get(cur).equals(need.get(cur))) valid--;
+                //     window.put(cur,window.getOrDefault(cur,1) - 1);
+                // }
             }
             return ans;
         }

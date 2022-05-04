@@ -114,7 +114,7 @@ public class P076_MinimumWindowSubstring {
                     }
                 }
             }
-            return len == Integer.MAX_VALUE ? "" : new String(chars, start, len);
+            return len == Integer.MAX_VALUE ? "" : s.substring(start, start + len);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
