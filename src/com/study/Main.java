@@ -5,47 +5,44 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class Main {
+    private static int ans = 0;
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String str = sc.nextLine();
-        String[] split = str.split("\\.");
-        for (String s : split) {
-            char[] chars = s.toCharArray();
-            StringBuilder sb = new StringBuilder();
-            // 末尾为符号位，从倒数第二位开始向头遍历
-            int end = chars.length - 1;
-            sb.append('.');
-            for (int start = chars.length - 1; start >= 0; start--) {
-                if (chars[start] == ' '){
-                    sb.append(chars,start + 1,end - start).append(' ');
-                    end = start - 1;
-                }else if (start == 0){
-                    sb.append(chars,start,end - start + 1);
-                }
+        int N = sc.nextInt();
+        int m = sc.nextInt();
+        List<int[]> list = new ArrayList<>();
+        for (int i = 0; i < N; i++) {
+            int[] arr = {sc.nextInt(), sc.nextInt()};
+            list.add(arr);
+        }
+        for (int i = 0; i < N; i++) {
+            dfs(list,0,m,i,new boolean[N]);
+        }
+        System.out.println(ans);
+    }
+    private static void dfs(List<int[]> list,int price,int cost,int index,boolean[] dp){
+    //    TODO 满足条件进行最优结果存储并返回
+        // index肯定没有被使用
+        if (index >= list.size() || list.get(index)[0] > cost){
+            // 在index之前找是否还有剩余未完成，如果没有则，记录最优结果
+            for (int i = 0; i < index; i++) {
+                if (dp[i]) continue;
+                int[] cur = list.get(i);
+                if (cur[0] > cost) break;
+                dp[i] = true;
+                cost -= cur[0];
+                price += cur[1];
+                dfs(list,price,cost,index,dp);
             }
-            System.out.println(sb);
-        }
-    }
-    private static int search(List<Integer> vec,int target){
-        int mid = vec.size() / 2;
-        if (vec.get(mid) == target){
-            return mid;
-        }else if (vec.get(mid) > target){
-            return binary(vec,target,0,mid - 1);
+            ans = Math.max(ans,price);
         }else {
-            return binary(vec,target,mid + 1,vec.size() - 1);
+            int[] cur = list.get(index);
+            dp[index] = true;
+            cost -= cur[0];
+            price += cur[1];
+            dfs(list,price,cost,index + 1,dp);
         }
-    }
-    private static int binary(List<Integer> vec,int target,int left,int right){
-        if (left > right) return -1;
-        int mid = left + ((right - left) >> 1);//防止越界
-        if (vec.get(mid) == target){
-            return mid;
-        }else if (vec.get(mid) > target){
-            return binary(vec,target,0,mid - 1);
-        }else {
-            return binary(vec,target,mid + 1,vec.size() - 1);
-        }
+
     }
 }
 class Cache{
