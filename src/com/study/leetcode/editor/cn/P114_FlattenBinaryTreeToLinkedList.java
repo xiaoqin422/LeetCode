@@ -76,11 +76,27 @@ public class P114_FlattenBinaryTreeToLinkedList {
 class Solution {
     private TreeNode p;
     public void flatten(TreeNode root) {
-        p = new TreeNode();
-        TreeNode ans = p;
-        dfs(root);
-        root = ans.right;
+        // p = new TreeNode();
+        // TreeNode ans = p;
+        // dfs(root);
+        // root = ans.right;
+        // 解法②分解子问题
+        if (root == null) return;
+        flatten(root.left);
+        flatten(root.right);
+        TreeNode p = root;
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+        root.left = null;
+        root.right = left;
+        // 核心！！！！不能是简单的赋值，
+        // 保证左子树的最右边跟右子树连接！！！！
+        while (p.right != null){
+            p = p.right;
+        }
+        p.right = right;
     }
+    // 解法①遍历
     private void dfs(TreeNode head){
         if (head == null) return;
         TreeNode right = head.right;
