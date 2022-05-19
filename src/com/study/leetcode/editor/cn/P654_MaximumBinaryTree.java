@@ -48,10 +48,14 @@ package com.study.leetcode.editor.cn;
 
 import com.study.leetcode.editor.cn.help.TreeNode;
 
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.util.Stack;
 
 /**
  * [654]maximum-binary-tree
+ *
  * @author 秦笑笑
  * @date 2022-05-12 18:36:12
  */
@@ -60,38 +64,75 @@ public class P654_MaximumBinaryTree {
         Solution solution = new P654_MaximumBinaryTree().new Solution();
     }
     //leetcode submit region begin(Prohibit modification and deletion)
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
-class Solution {
-    public TreeNode constructMaximumBinaryTree(int[] nums) {
-        return traverse(nums,0,nums.length - 1);
-    }
-    private TreeNode traverse(int[] nums,int start,int end){
-        if (start > end) return null;
-        PriorityQueue<int[]> queue = new PriorityQueue<>((int[]a,int[]b) -> b[1] - a[1]);
-        for (int i = start; i <= end; i++) {
-            queue.offer(new int[]{i,nums[i]});
+
+    /**
+     * Definition for a binary tree node.
+     * public class TreeNode {
+     * int val;
+     * TreeNode left;
+     * TreeNode right;
+     * TreeNode() {}
+     * TreeNode(int val) { this.val = val; }
+     * TreeNode(int val, TreeNode left, TreeNode right) {
+     * this.val = val;
+     * this.left = left;
+     * this.right = right;
+     * }
+     * }
+     */
+    class Solution {
+        public TreeNode constructMaximumBinaryTree(int[] nums) {
+            // return traverse(nums,0,nums.length - 1);
+            // 单调栈
+            Deque<TreeNode> stack = new LinkedList<>();
+            if (nums.length == 0) return null;
+            for (int item : nums) {
+                TreeNode node = new TreeNode(item);
+                if (stack.isEmpty() || stack.peekLast().val > item) {
+                    stack.offerLast(node);
+                } else {
+                    while (!stack.isEmpty() && stack.peekLast().val < node.val) {
+                        TreeNode pop = stack.pollLast();
+                        if (!stack.isEmpty()) {
+                            TreeNode peek = stack.peekLast();
+                            if (peek.val < item) {
+                                peek.right = pop;
+                            } else {
+                                node.left = pop;
+                            }
+                        } else {
+                            node.left = pop;
+                        }
+                    }
+                    stack.offerLast(node);
+                }
+            }
+            TreeNode ans = stack.pollFirst();
+            TreeNode p = ans;
+            while (!stack.isEmpty()) {
+                p.right = stack.pollFirst();
+                p = p.right;
+            }
+            return ans;
         }
-        int[] poll = queue.poll();
-        TreeNode treeNode = new TreeNode(poll[1]);
-        treeNode.left = traverse(nums,start,poll[0] - 1);
-        treeNode.right = traverse(nums,poll[0] + 1,end);
-        return treeNode;
+
+        // 递归遍历子问题解决
+        private TreeNode traverse(int[] nums, int start, int end) {
+            if (start > end) return null;
+            int max = -1;
+            int maxIndex = start;
+            for (int i = start; i <= end; i++) {
+                if (nums[i] > max) {
+                    maxIndex = i;
+                    max = nums[i];
+                }
+            }
+            TreeNode treeNode = new TreeNode(max);
+            treeNode.left = traverse(nums, start, maxIndex - 1);
+            treeNode.right = traverse(nums, maxIndex + 1, end);
+            return treeNode;
+        }
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }

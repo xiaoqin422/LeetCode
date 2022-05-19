@@ -171,10 +171,10 @@
         <entry key="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/ConstructBinaryTreeFromInorderAndPostorderTraversal.java">
           <value>
             <LeetcodeEditor>
-              <option name="contentPath" value="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/doc/content/ConstructBinaryTreeFromInorderAndPostorderTraversal.md" />
+              <option name="contentPath" value="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/doc/content/P106_ConstructBinaryTreeFromInorderAndPostorderTraversal.md" />
               <option name="frontendQuestionId" value="leetcode.cn106" />
               <option name="host" value="leetcode.cn" />
-              <option name="path" value="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/ConstructBinaryTreeFromInorderAndPostorderTraversal.java" />
+              <option name="path" value="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/P106_ConstructBinaryTreeFromInorderAndPostorderTraversal.java" />
               <option name="titleSlug" value="construct-binary-tree-from-inorder-and-postorder-traversal" />
             </LeetcodeEditor>
           </value>
@@ -182,10 +182,10 @@
         <entry key="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/ConstructBinaryTreeFromPreorderAndInorderTraversal.java">
           <value>
             <LeetcodeEditor>
-              <option name="contentPath" value="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/doc/content/ConstructBinaryTreeFromPreorderAndInorderTraversal.md" />
+              <option name="contentPath" value="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/doc/content/P105_ConstructBinaryTreeFromPreorderAndInorderTraversal.md" />
               <option name="frontendQuestionId" value="leetcode.cn105" />
               <option name="host" value="leetcode.cn" />
-              <option name="path" value="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/ConstructBinaryTreeFromPreorderAndInorderTraversal.java" />
+              <option name="path" value="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/P105_ConstructBinaryTreeFromPreorderAndInorderTraversal.java" />
               <option name="titleSlug" value="construct-binary-tree-from-preorder-and-inorder-traversal" />
             </LeetcodeEditor>
           </value>
@@ -938,6 +938,28 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/P105_ConstructBinaryTreeFromPreorderAndInorderTraversal.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/doc/content/P105_ConstructBinaryTreeFromPreorderAndInorderTraversal.md" />
+              <option name="frontendQuestionId" value="leetcode.cn105" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/P105_ConstructBinaryTreeFromPreorderAndInorderTraversal.java" />
+              <option name="titleSlug" value="construct-binary-tree-from-preorder-and-inorder-traversal" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/P106_ConstructBinaryTreeFromInorderAndPostorderTraversal.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/doc/content/P106_ConstructBinaryTreeFromInorderAndPostorderTraversal.md" />
+              <option name="frontendQuestionId" value="leetcode.cn106" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/P106_ConstructBinaryTreeFromInorderAndPostorderTraversal.java" />
+              <option name="titleSlug" value="construct-binary-tree-from-inorder-and-postorder-traversal" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/P1081_SmallestSubsequenceOfDistinctCharacters.java">
           <value>
             <LeetcodeEditor>
@@ -1089,6 +1111,17 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/P283_MoveZeroes.java" />
               <option name="titleSlug" value="move-zeroes" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/P297_SerializeAndDeserializeBinaryTree.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/doc/content/P297_SerializeAndDeserializeBinaryTree.md" />
+              <option name="frontendQuestionId" value="leetcode.cn297" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/P297_SerializeAndDeserializeBinaryTree.java" />
+              <option name="titleSlug" value="serialize-and-deserialize-binary-tree" />
             </LeetcodeEditor>
           </value>
         </entry>
@@ -1320,6 +1353,17 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/P876_MiddleOfTheLinkedList.java" />
               <option name="titleSlug" value="middle-of-the-linked-list" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/P889_ConstructBinaryTreeFromPreorderAndPostorderTraversal.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/doc/content/P889_ConstructBinaryTreeFromPreorderAndPostorderTraversal.md" />
+              <option name="frontendQuestionId" value="leetcode.cn889" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/com/study/leetcode/editor/cn/P889_ConstructBinaryTreeFromPreorderAndPostorderTraversal.java" />
+              <option name="titleSlug" value="construct-binary-tree-from-preorder-and-postorder-traversal" />
             </LeetcodeEditor>
           </value>
         </entry>

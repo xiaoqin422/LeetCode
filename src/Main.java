@@ -1,63 +1,83 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int k = sc.nextInt();
-        int x = sc.nextInt();
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = sc.nextInt();
-        }
-        int left = 0, right = 0;
-        boolean[] dp = new boolean[n];//用于记录该元素是否已经被选择
-        PriorityQueue<Integer> selected = new PriorityQueue<>();
-        PriorityQueue<int[]> window = new PriorityQueue<>((int[] a, int[] b) -> b[0] - a[0]);
-        while (right < n) {
-            int cur = arr[right];
-            window.offer(new int[]{cur, right});
-            right++;
+        // Scanner sc = new Scanner(System.in);
+        // 1 [A B C]
+        // [Z B C]
+        // [E A]9
+        // [D A Z]
+        // [X DE]
+        // select * from table_name where product = product_name and audit_time
+        // >= (select audit_time from table_name where audit_name = name)
 
-            while (right - left >= k) {  //调整窗口，出
-                cur = arr[left];
-                int[] peek = window.peek();//本组最大的值
-                if (selected.size() < x){
-                    while (dp[peek[1]]) {
-                        window.poll();
-                        peek = window.peek();
-                    }
-                    selected.offer(peek[0]);
-                    dp[peek[1]] = true;
-                }else if (!dp[window.peek()[1]] && window.peek()[0] > selected.peek()){
-                    System.out.println(-1);
-                    return;
-                }
-                remove(window,new int[]{cur,left});
-                left++;
+        // select * from table_name where id in (
+        // (select id from table_name where audit_name = name) UNION
+        // (select id from table_name where product = product_name and audit_time >= time))
+        /* a <- a,b,c
+         *  e <- e,a
+         *  d <- d,a,z
+         *  x -> x,d,e
+         *  z -> z,b,c
+         *
+         * b c a
+         */
+        ArrayList<List<Character>> lists = new ArrayList<>();
+        List<Character> list = new ArrayList<>();
+        list = Arrays.asList('A', 'B', 'C');
+        lists.add(new ArrayList<>(list));
+        list = Arrays.asList('Z', 'B', 'C');
+        lists.add(new ArrayList<>(list));
+        list = Arrays.asList('E', 'A');
+        lists.add(new ArrayList<>(list));
+        list = Arrays.asList('D', 'A', 'Z');
+        lists.add(new ArrayList<>(list));
+        list = Arrays.asList('X', 'D', 'E');
+        lists.add(new ArrayList<>(list));
+        List<Character> method = method(lists,Arrays.asList('A','B','C','D','E','Z','X'));
+        if (method != null) {
+            for (Character character : method) {
+                System.out.println(character);
             }
+        } else {
+            System.out.println("无法执行");
         }
-        int ans = 0;
-        while ( x > 0) {
-            ans += selected.poll();
-            x--;
-        }
-        System.out.println(ans);
+
     }
-    private static void remove(PriorityQueue<int[]> d,int[] target){
-        List<int[]> list = new ArrayList<>();
-        while (!d.isEmpty()){
-            int[] cur = d.poll();
-            if (cur[0] == target[0] && cur[1] == target[1]){
-                break;
+
+    private static List<Character> method(List<List<Character>> task,List<Character> list) {
+        Map<Character, List<Character>> map = new HashMap<>();
+        List<Character> finish = new ArrayList<>(list);
+        for (List<Character> item : task) {
+            if (item.size() != 1) {
+                map.put(item.get(0), item);
+                finish.remove(item.get(0));
             }
-            list.add(cur);
         }
-        for (int[] item : list) {
-            d.offer(item);
+        if (finish.size() == 0) return null;
+        // 任务执行结束跳出
+        while (map.size() > 0) {
+            Iterator<Map.Entry<Character, List<Character>>> entryIterator = map.entrySet().iterator();
+            while (entryIterator.hasNext()){
+                Map.Entry<Character, List<Character>> item = entryIterator.next();
+                Character key = item.getKey();
+                List<Character> value = item.getValue();
+                // 进行条件处理
+                Iterator<Character> iterator = value.iterator();
+                while (iterator.hasNext()){
+                    Character character = iterator.next();
+                    if (finish.contains(character)) {
+                        iterator.remove();
+                    }
+                }
+                // 任务完成
+                if (value.size() <= 1) {
+                    finish.add(key);
+                    entryIterator.remove();
+                }
+            }
         }
+        return finish;
+
     }
 }
